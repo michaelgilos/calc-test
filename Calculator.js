@@ -1,6 +1,6 @@
 import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
-import React, { useState, useEffect } from 'react'
-import { includes, nth, values, split, pipe } from 'ramda'
+import { includes, nth, pipe, split, values } from 'ramda'
+import React, { useEffect, useState } from 'react'
 import Converter from './Converter'
 
 const CButton = ({ label, disabled = false, onPress }) => (
@@ -61,9 +61,19 @@ export default Calculator = () => {
 
   const outputResult = () => {
     const [num1, op, num2] = input.split(' ')
-    const result = applyOperation(+num1, +num2)[op]
 
-    setInput(result.toString())
+    if (digitType === ARABIC) {
+      const result = applyOperation(+num1, +num2)[op]
+      setInput(result.toString())
+    }
+    if (digitType === ROMAN) {
+      const result = applyOperation(
+        Converter.toArabic(num1),
+        Converter.toArabic(num2)
+      )[op]
+
+      setInput(Converter.toRoman(result))
+    }
   }
 
   const disallowOperator = () => {
