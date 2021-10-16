@@ -56,7 +56,7 @@ export default Calculator = () => {
     [OPERATOR.Add]: num1 + num2,
     [OPERATOR.Sub]: num1 - num2,
     [OPERATOR.Mul]: num1 * num2,
-    [OPERATOR.Div]: num1 / num2
+    [OPERATOR.Div]: Math.floor(num1 / num2)
   })
 
   const outputResult = () => {
