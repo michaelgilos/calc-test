@@ -1,5 +1,6 @@
 import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
+import { includes, nth, values, split, pipe } from 'ramda'
 
 const CButton = ({ label, disabled = false, onPress }) => (
   <Button
@@ -19,16 +20,12 @@ export default Calculator = () => {
     Add: '+',
     Sub: '-',
     Div: '÷',
-    Mul: 'x'
+    Mul: '*'
   }
 
   const [input, setInput] = useState('')
 
   const [digitType, setDigitType] = useState(ARABIC)
-
-  const [firstNumber, setFirstNumber] = useState(0)
-  const [secondNumber, setSecondNumber] = useState(0)
-  const [op, setOp] = useState()
 
   const toggleDigitType = () =>
     setDigitType(digitType === ARABIC ? ROMAN : ARABIC)
@@ -46,21 +43,35 @@ export default Calculator = () => {
 
   const clearInput = () => {
     setInput('')
-    setOp(undefined)
   }
 
   const useOperator = (op) => {
     console.log(op)
 
-    setFirstNumber(+input)
-    setOp(op)
-
     setInput(`${input} ${op} `)
   }
 
-  const outputResult = () => {}
+  const applyOperation = (num1, num2) => ({
+    [OPERATOR.Add]: num1 + num2,
+    [OPERATOR.Sub]: num1 - num2,
+    [OPERATOR.Mul]: num1 * num2,
+    [OPERATOR.Div]: num1 / num2
+  })
 
-  const disallowOperator = () => input.length === 0 || op
+  const outputResult = () => {
+    const [num1, op, num2] = input.split(' ')
+    const result = applyOperation(+num1, +num2)[op]
+
+    setInput(result.toString())
+  }
+
+  const disallowOperator = () => {
+    const noInput = input.length === 0
+    const operator = pipe(split(' '), nth(1))(input)
+    const hasOperator = includes(operator, values(OPERATOR))
+
+    return noInput || hasOperator
+  }
 
   return (
     <Box alignItems="center">
