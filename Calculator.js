@@ -93,8 +93,6 @@ export default Calculator = () => {
       const tempOp = op ? ` ${op} ` : ''
       const value = `${roman1}${tempOp}${roman2}`
 
-      console.log({ roman1, roman2, tempOp, value })
-
       setInput(value)
     }
 
