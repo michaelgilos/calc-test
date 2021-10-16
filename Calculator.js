@@ -53,6 +53,8 @@ export default Calculator = () => {
 
     setFirstNumber(+input)
     setOp(op)
+
+    setInput(`${input} ${op} `)
   }
 
   const outputResult = () => {}
