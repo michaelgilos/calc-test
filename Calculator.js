@@ -8,7 +8,17 @@ const CButton = ({ label, onPress }) => (
 )
 
 export default Calculator = () => {
+  const ARABIC = 'arabic'
+  const ROMAN = 'roman'
+
   const [input, setInput] = useState('')
+
+  const [digitType, setDigitType] = useState(ARABIC)
+
+  const toggleDigitType = () =>
+    setDigitType(digitType === ARABIC ? ROMAN : ARABIC)
+
+  const switchText = digitType === ARABIC ? 'Use Roman' : 'Use Arabic'
 
   const appendNumber = (num) => {
     if (input.startsWith('0')) {
@@ -34,6 +44,7 @@ export default Calculator = () => {
       <Heading mb="5" textAlign="center">
         Calculator
       </Heading>
+
       <Text
         width="100%"
         fontSize="xl"
@@ -65,7 +76,8 @@ export default Calculator = () => {
           <CButton label="=" onPress={outputResult} />
           <CButton label="+" onPress={useOperator} />
         </SimpleGrid>
-        <Button>Switch</Button>
+
+        <Button onPress={toggleDigitType}>{switchText}</Button>
       </VStack>
     </Box>
   )
