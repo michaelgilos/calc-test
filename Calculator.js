@@ -73,6 +73,11 @@ export default Calculator = () => {
     return noInput || hasOperator
   }
 
+  const canComputeResult = () => {
+    const [num1, op, num2] = input.split(' ')
+    return num1 && op && num2
+  }
+
   return (
     <Box alignItems="center">
       <Heading mb="5" textAlign="center">
@@ -119,7 +124,11 @@ export default Calculator = () => {
 
           <CButton label="0" onPress={appendNumber} />
           <CButton label="C" onPress={clearInput} />
-          <CButton label="=" onPress={outputResult} />
+          <CButton
+            label="="
+            disabled={!canComputeResult()}
+            onPress={outputResult}
+          />
           <CButton
             label={OPERATOR.Add}
             disabled={disallowOperator()}
