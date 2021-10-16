@@ -46,6 +46,7 @@ export default Calculator = () => {
 
   const clearInput = () => {
     setInput('')
+    setOp(undefined)
   }
 
   const useOperator = (op) => {
@@ -59,7 +60,7 @@ export default Calculator = () => {
 
   const outputResult = () => {}
 
-  const hasNoInput = () => input.length === 0
+  const disallowOperator = () => input.length === 0 || op
 
   return (
     <Box alignItems="center">
@@ -83,7 +84,7 @@ export default Calculator = () => {
           <CButton label="9" onPress={appendNumber} />
           <CButton
             label={OPERATOR.Div}
-            disabled={hasNoInput()}
+            disabled={disallowOperator()}
             onPress={useOperator}
           />
 
@@ -92,7 +93,7 @@ export default Calculator = () => {
           <CButton label="6" onPress={appendNumber} />
           <CButton
             label={OPERATOR.Mul}
-            disabled={hasNoInput()}
+            disabled={disallowOperator()}
             onPress={useOperator}
           />
 
@@ -101,7 +102,7 @@ export default Calculator = () => {
           <CButton label="1" onPress={appendNumber} />
           <CButton
             label={OPERATOR.Sub}
-            disabled={hasNoInput()}
+            disabled={disallowOperator()}
             onPress={useOperator}
           />
 
@@ -110,7 +111,7 @@ export default Calculator = () => {
           <CButton label="=" onPress={outputResult} />
           <CButton
             label={OPERATOR.Add}
-            disabled={hasNoInput()}
+            disabled={disallowOperator()}
             onPress={useOperator}
           />
         </SimpleGrid>
