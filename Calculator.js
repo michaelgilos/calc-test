@@ -8,28 +8,55 @@ import {
   Text,
   SimpleGrid
 } from 'native-base'
-import R from 'ramda'
+import { pipe, range, reverse } from 'ramda'
+
+const CButton = ({ label, onPress }) => (
+  <Button key={label} size="20" onPress={onPress}>
+    {label}
+  </Button>
+)
 
 export default Calculator = () => {
-  const numbers = R.range(0, 10)
-
   return (
     // <Center flex={1}>
-    <Box>
+    <Box alignItems="center">
       <Heading mb="5" textAlign="center">
         Calculator
       </Heading>
-      <Text fontSize="lg" borderWidth="1" textAlign="right" paddingRight="1">
+      <Text
+        width="100%"
+        fontSize="xl"
+        borderWidth="1"
+        textAlign="right"
+        paddingRight="1">
         6xl
       </Text>
 
-      <SimpleGrid columns={3} spacing={2}>
-        {numbers.map((_item, index) => {
-          return <Box key={index} bg="emerald.400" size={16} rounded="lg" />
-        })}
-      </SimpleGrid>
+      <VStack space={2} marginTop="10">
+        <SimpleGrid columns={4} space={1}>
+          <CButton label="7" />
+          <CButton label="8" />
+          <CButton label="9" />
+          <CButton label="÷" />
 
-      <VStack space={1}>
+          <CButton label="4" />
+          <CButton label="5" />
+          <CButton label="6" />
+          <CButton label="x" />
+
+          <CButton label="3" />
+          <CButton label="2" />
+          <CButton label="1" />
+          <CButton label="-" />
+
+          <CButton label="0" />
+          <CButton label="C" />
+          <CButton label="=" />
+          <CButton label="+" />
+        </SimpleGrid>
+        <Button>Switch</Button>
+      </VStack>
+      {/* <VStack space={1}>
         <HStack space={1}>
           <Button key={Date.now()} size="md">
             7
@@ -52,7 +79,7 @@ export default Calculator = () => {
             6
           </Button>
         </HStack>
-      </VStack>
+      </VStack> */}
     </Box>
     // </Center>
   )
