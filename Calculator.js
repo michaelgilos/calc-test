@@ -73,22 +73,22 @@ export default Calculator = () => {
           <CButton label="7" onPress={appendNumber} />
           <CButton label="8" onPress={appendNumber} />
           <CButton label="9" onPress={appendNumber} />
-          <CButton label="÷" onPress={useOperator} />
+          <CButton label={OPERATOR.Div} onPress={useOperator} />
 
           <CButton label="4" onPress={appendNumber} />
           <CButton label="5" onPress={appendNumber} />
           <CButton label="6" onPress={appendNumber} />
-          <CButton label="x" onPress={useOperator} />
+          <CButton label={OPERATOR.Mul} onPress={useOperator} />
 
           <CButton label="3" onPress={appendNumber} />
           <CButton label="2" onPress={appendNumber} />
           <CButton label="1" onPress={appendNumber} />
-          <CButton label="-" onPress={useOperator} />
+          <CButton label={OPERATOR.Sub} onPress={useOperator} />
 
           <CButton label="0" onPress={appendNumber} />
           <CButton label="C" onPress={clearInput} />
           <CButton label="=" onPress={outputResult} />
-          <CButton label="+" onPress={useOperator} />
+          <CButton label={OPERATOR.Add} onPress={useOperator} />
         </SimpleGrid>
 
         <Button onPress={toggleDigitType}>{switchText}</Button>
