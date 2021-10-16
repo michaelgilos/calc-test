@@ -11,12 +11,22 @@ import {
 import { pipe, range, reverse } from 'ramda'
 
 const CButton = ({ label, onPress }) => (
-  <Button key={label} size="20" onPress={onPress}>
+  <Button key={label} size="20" onPress={() => onPress(label)}>
     {label}
   </Button>
 )
 
 export default Calculator = () => {
+  const appendNumber = (num) => console.log(num)
+
+  const clearInput = () => {}
+
+  const useOperator = (op) => {
+    console.log(op)
+  }
+
+  const outputResult = () => {}
+
   return (
     <Box alignItems="center">
       <Heading mb="5" textAlign="center">
@@ -33,25 +43,25 @@ export default Calculator = () => {
 
       <VStack space={2} marginTop="10">
         <SimpleGrid columns={4} space={1}>
-          <CButton label="7" />
-          <CButton label="8" />
-          <CButton label="9" />
-          <CButton label="÷" />
+          <CButton label="7" onPress={appendNumber} />
+          <CButton label="8" onPress={appendNumber} />
+          <CButton label="9" onPress={appendNumber} />
+          <CButton label="÷" onPress={useOperator} />
 
-          <CButton label="4" />
-          <CButton label="5" />
-          <CButton label="6" />
-          <CButton label="x" />
+          <CButton label="4" onPress={appendNumber} />
+          <CButton label="5" onPress={appendNumber} />
+          <CButton label="6" onPress={appendNumber} />
+          <CButton label="x" onPress={useOperator} />
 
-          <CButton label="3" />
-          <CButton label="2" />
-          <CButton label="1" />
-          <CButton label="-" />
+          <CButton label="3" onPress={appendNumber} />
+          <CButton label="2" onPress={appendNumber} />
+          <CButton label="1" onPress={appendNumber} />
+          <CButton label="-" onPress={useOperator} />
 
-          <CButton label="0" />
-          <CButton label="C" />
-          <CButton label="=" />
-          <CButton label="+" />
+          <CButton label="0" onPress={appendNumber} />
+          <CButton label="C" onPress={clearInput} />
+          <CButton label="=" onPress={outputResult} />
+          <CButton label="+" onPress={useOperator} />
         </SimpleGrid>
         <Button>Switch</Button>
       </VStack>
