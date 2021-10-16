@@ -1,6 +1,7 @@
 import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { includes, nth, values, split, pipe } from 'ramda'
+import Converter from './Converter'
 
 const CButton = ({ label, disabled = false, onPress }) => (
   <Button
@@ -78,6 +79,37 @@ export default Calculator = () => {
     return num1 && op && num2
   }
 
+  const labelForDigitType = (num) =>
+    digitType === ARABIC ? num : Converter.toRoman(num)
+
+  useEffect(() => {
+    const [first, op, second] = input.split(' ')
+
+    if (!first) return
+
+    if (digitType === ROMAN) {
+      const roman1 = Converter.toRoman(+first)
+      const roman2 = second ? Converter.toRoman(+second) : ''
+      const tempOp = op ? ` ${op} ` : ''
+      const value = `${roman1}${tempOp}${roman2}`
+
+      console.log({ roman1, roman2, tempOp, value })
+
+      setInput(value)
+    }
+
+    if (digitType === ARABIC) {
+      const num1 = Converter.toArabic(first)
+      const num2 = second ? Converter.toArabic(second) : ''
+      const tempOp = op ? ` ${op} ` : ''
+      const value = `${num1}${tempOp}${num2}`
+
+      console.log({ num1, num2, tempOp, value })
+
+      setInput(value)
+    }
+  }, [digitType])
+
   return (
     <Box alignItems="center">
       <Heading mb="5" textAlign="center">
@@ -95,34 +127,35 @@ export default Calculator = () => {
 
       <VStack space={2} marginTop="10">
         <SimpleGrid columns={4} space={1}>
-          <CButton label="7" onPress={appendNumber} />
-          <CButton label="8" onPress={appendNumber} />
-          <CButton label="9" onPress={appendNumber} />
+          <CButton label={labelForDigitType(7)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(8)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(9)} onPress={appendNumber} />
           <CButton
             label={OPERATOR.Div}
             disabled={disallowOperator()}
             onPress={useOperator}
           />
 
-          <CButton label="4" onPress={appendNumber} />
-          <CButton label="5" onPress={appendNumber} />
-          <CButton label="6" onPress={appendNumber} />
+          <CButton label={labelForDigitType(4)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(5)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(6)} onPress={appendNumber} />
           <CButton
             label={OPERATOR.Mul}
             disabled={disallowOperator()}
             onPress={useOperator}
           />
 
-          <CButton label="3" onPress={appendNumber} />
-          <CButton label="2" onPress={appendNumber} />
-          <CButton label="1" onPress={appendNumber} />
+          <CButton label={labelForDigitType(3)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(2)} onPress={appendNumber} />
+          <CButton label={labelForDigitType(1)} onPress={appendNumber} />
           <CButton
             label={OPERATOR.Sub}
             disabled={disallowOperator()}
             onPress={useOperator}
           />
 
-          <CButton label="0" onPress={appendNumber} />
+          {digitType === ARABIC && <CButton label="0" onPress={appendNumber} />}
+
           <CButton label="C" onPress={clearInput} />
           <CButton
             label="="
