@@ -18,7 +18,6 @@ const CButton = ({ label, onPress }) => (
 
 export default Calculator = () => {
   return (
-    // <Center flex={1}>
     <Box alignItems="center">
       <Heading mb="5" textAlign="center">
         Calculator
@@ -56,31 +55,6 @@ export default Calculator = () => {
         </SimpleGrid>
         <Button>Switch</Button>
       </VStack>
-      {/* <VStack space={1}>
-        <HStack space={1}>
-          <Button key={Date.now()} size="md">
-            7
-          </Button>
-          <Button key={Date.now()} size="md">
-            8
-          </Button>
-          <Button key={Date.now()} size="md">
-            9
-          </Button>
-        </HStack>
-        <HStack space={1}>
-          <Button key={Date.now()} size="md">
-            4
-          </Button>
-          <Button key={Date.now()} size="md">
-            5
-          </Button>
-          <Button key={Date.now()} size="md">
-            6
-          </Button>
-        </HStack>
-      </VStack> */}
     </Box>
-    // </Center>
   )
 }
