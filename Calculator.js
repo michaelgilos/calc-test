@@ -1,14 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {
-  VStack,
-  HStack,
-  Button,
-  Box,
-  Heading,
-  Text,
-  SimpleGrid
-} from 'native-base'
-import { pipe, range, reverse } from 'ramda'
+import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
+import React, { useState } from 'react'
 
 const CButton = ({ label, onPress }) => (
   <Button key={label} size="20" onPress={() => onPress(label)}>
@@ -17,9 +8,20 @@ const CButton = ({ label, onPress }) => (
 )
 
 export default Calculator = () => {
-  const appendNumber = (num) => console.log(num)
+  const [input, setInput] = useState('')
 
-  const clearInput = () => {}
+  const appendNumber = (num) => {
+    if (input.startsWith('0')) {
+      setInput(num)
+      return
+    }
+
+    setInput(input + num)
+  }
+
+  const clearInput = () => {
+    setInput('')
+  }
 
   const useOperator = (op) => {
     console.log(op)
@@ -38,7 +40,7 @@ export default Calculator = () => {
         borderWidth="1"
         textAlign="right"
         paddingRight="1">
-        6xl
+        {input}
       </Text>
 
       <VStack space={2} marginTop="10">
