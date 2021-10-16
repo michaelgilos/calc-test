@@ -1,9 +1,13 @@
-import { tSTypeOperator } from '@babel/types'
 import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
 
-const CButton = ({ label, onPress }) => (
-  <Button key={label} size="20" onPress={() => onPress(label)}>
+const CButton = ({ label, disabled = false, onPress }) => (
+  <Button
+    key={label}
+    size="20"
+    colorScheme={disabled ? 'dark' : 'primary'}
+    onPress={() => onPress(label)}
+    disabled={disabled}>
     {label}
   </Button>
 )
@@ -53,6 +57,8 @@ export default Calculator = () => {
 
   const outputResult = () => {}
 
+  const hasNoInput = () => input.length === 0
+
   return (
     <Box alignItems="center">
       <Heading mb="5" textAlign="center">
@@ -73,22 +79,38 @@ export default Calculator = () => {
           <CButton label="7" onPress={appendNumber} />
           <CButton label="8" onPress={appendNumber} />
           <CButton label="9" onPress={appendNumber} />
-          <CButton label={OPERATOR.Div} onPress={useOperator} />
+          <CButton
+            label={OPERATOR.Div}
+            disabled={hasNoInput()}
+            onPress={useOperator}
+          />
 
           <CButton label="4" onPress={appendNumber} />
           <CButton label="5" onPress={appendNumber} />
           <CButton label="6" onPress={appendNumber} />
-          <CButton label={OPERATOR.Mul} onPress={useOperator} />
+          <CButton
+            label={OPERATOR.Mul}
+            disabled={hasNoInput()}
+            onPress={useOperator}
+          />
 
           <CButton label="3" onPress={appendNumber} />
           <CButton label="2" onPress={appendNumber} />
           <CButton label="1" onPress={appendNumber} />
-          <CButton label={OPERATOR.Sub} onPress={useOperator} />
+          <CButton
+            label={OPERATOR.Sub}
+            disabled={hasNoInput()}
+            onPress={useOperator}
+          />
 
           <CButton label="0" onPress={appendNumber} />
           <CButton label="C" onPress={clearInput} />
           <CButton label="=" onPress={outputResult} />
-          <CButton label={OPERATOR.Add} onPress={useOperator} />
+          <CButton
+            label={OPERATOR.Add}
+            disabled={hasNoInput()}
+            onPress={useOperator}
+          />
         </SimpleGrid>
 
         <Button onPress={toggleDigitType}>{switchText}</Button>
