@@ -1,3 +1,4 @@
+import { tSTypeOperator } from '@babel/types'
 import { Box, Button, Heading, SimpleGrid, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
 
@@ -10,10 +11,20 @@ const CButton = ({ label, onPress }) => (
 export default Calculator = () => {
   const ARABIC = 'arabic'
   const ROMAN = 'roman'
+  const OPERATOR = {
+    Add: '+',
+    Sub: '-',
+    Div: '÷',
+    Mul: 'x'
+  }
 
   const [input, setInput] = useState('')
 
   const [digitType, setDigitType] = useState(ARABIC)
+
+  const [firstNumber, setFirstNumber] = useState(0)
+  const [secondNumber, setSecondNumber] = useState(0)
+  const [op, setOp] = useState()
 
   const toggleDigitType = () =>
     setDigitType(digitType === ARABIC ? ROMAN : ARABIC)
@@ -35,6 +46,9 @@ export default Calculator = () => {
 
   const useOperator = (op) => {
     console.log(op)
+
+    setFirstNumber(+input)
+    setOp(op)
   }
 
   const outputResult = () => {}
